@@ -9,7 +9,7 @@ class Tweet < Post
   end
   
   def reply?
-    content.match(/\A@\w+:?/)
+    content.match(/\A(.[ ]?)?@\w+:?/)
   end
 
 end

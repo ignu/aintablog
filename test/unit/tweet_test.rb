@@ -19,8 +19,15 @@ class TweetTest < ActiveSupport::TestCase
   end
   
   def test_should_not_give_false_positives_for_reply_helper
-     tweet = create_tweet :content => "just referencing @somebody"
-      assert ! tweet.reply?, "false positive on non-reply"
+    tweet = create_tweet :content => "just referencing @somebody"
+    assert ! tweet.reply?, "false positive on non-reply"
+  end
+
+  def test_should_handle_fix_reply_hacks_when_tweet_starts_with_any_char_and_an_optional_space
+    tweet = create_tweet :content => "r @somebody"
+    assert tweet.reply?, "didn't recognize fix replies"
+    tweet = create_tweet :content => "~@somebody"
+    assert tweet.reply?, "didn't recognize fix replies"  
   end
   
 protected
