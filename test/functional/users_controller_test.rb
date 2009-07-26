@@ -20,12 +20,14 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   def test_should_not_get_new_if_users_exist
+    User.expects(:count).returns(1)
     get :new
     assert_redirected_to root_path
   end
 
   def test_should_not_get_new_if_users_exist_even_for_relative_url
     set_relative_url do
+      User.expects(:count).returns(1)
       get :new
       assert_redirected_to root_path
     end
